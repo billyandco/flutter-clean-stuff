@@ -1,8 +1,8 @@
-import 'package:flutter_clean_stuff/features/maths/domain/entity/division_entity.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/repository/repository.dart';
+import '../entity/division_entity.dart';
 
 abstract interface class IEuclideanDivisionUseCase {
   const IEuclideanDivisionUseCase();

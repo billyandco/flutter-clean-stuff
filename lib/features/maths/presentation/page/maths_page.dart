@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_stuff/common/injection/depedencies.dart';
-import 'package:flutter_clean_stuff/features/maths/presentation/presentation.dart';
+
+import '../../../../common/injection/depedencies.dart';
+import '../presentation.dart';
 
 class MathsPage extends StatelessWidget {
   const MathsPage({super.key});
@@ -19,7 +20,6 @@ class MathsPage extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 1,
             child: FittedBox(
-              fit: BoxFit.contain,
               child: Container(
                 padding: const EdgeInsets.all(8),
                 width: 300,

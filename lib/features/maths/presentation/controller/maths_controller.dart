@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_clean_stuff/features/maths/domain/domain.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../domain/domain.dart';
 
 class DivisionState {
   const DivisionState({
@@ -48,10 +49,12 @@ final class MathsController extends Cubit<DivisionState> {
     int? dividend,
     int? divisor,
   }) {
-    emit(state.copyWith(
-      dividend: dividend,
-      divisor: divisor,
-    ));
+    emit(
+      state.copyWith(
+        dividend: dividend,
+        divisor: divisor,
+      ),
+    );
     _divide();
   }
 

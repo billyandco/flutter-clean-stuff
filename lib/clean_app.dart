@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_stuff/features/maths/maths.dart';
+
+import 'features/maths/maths.dart';
 
 class CleanApp extends StatelessWidget {
   const CleanApp({super.key});
