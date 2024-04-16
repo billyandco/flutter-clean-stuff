@@ -1,0 +1,7 @@
+.dart_tool/
+.fvm/
+.idea/
+.vscode/
+build/
+.metadata
+flutter_clean_stuff.iml
