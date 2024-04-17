@@ -24,67 +24,20 @@ class MathsPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 width: 300,
                 height: 300,
-                child: Builder(
-                  builder: (context) {
+                child: BlocBuilder<MathsController, DivisionState>(
+                  buildWhen: (previous, current) =>
+                      (previous.remainder, previous.quotient) !=
+                      (current.remainder, current.quotient),
+                  builder: (context, state) {
                     return EuclideanDivisionCard(
-                      dividend: Padding(
-                        padding: const EdgeInsets.only(right: 16),
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          onChanged: (value) => context
-                              .read<MathsController>()
-                              .update(dividend: int.tryParse(value)),
-                        ),
-                      ),
-                      divisor: Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          onChanged: (value) => context
-                              .read<MathsController>()
-                              .update(divisor: int.tryParse(value)),
-                        ),
-                      ),
-                      remainder: Builder(
-                        builder: (context) {
-                          final remainder = context.select(
-                            (MathsController c) => c.state.remainder,
-                          );
-
-                          if (remainder == null) {
-                            return const Text('');
-                          }
-
-                          return Text(
-                            remainder.toString(),
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 32,
-                            ),
-                          );
-                        },
-                      ),
-                      quotient: Builder(
-                        builder: (context) {
-                          final quotient = context.select(
-                            (MathsController c) => c.state.quotient,
-                          );
-
-                          if (quotient == null) {
-                            return const Text('');
-                          }
-
-                          return Text(
-                            quotient.toString(),
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 32,
-                            ),
-                          );
-                        },
-                      ),
+                      remainder: state.remainder,
+                      quotient: state.quotient,
+                      onDividendChanged: (dividend) => context
+                          .read<MathsController>()
+                          .update(dividend: dividend),
+                      onDivisorChanged: (divisor) => context
+                          .read<MathsController>()
+                          .update(divisor: divisor),
                     );
                   },
                 ),

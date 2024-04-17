@@ -3,6 +3,49 @@ import 'package:injectable/injectable.dart';
 
 import '../../domain/domain.dart';
 
+@injectable
+final class MathsController extends Cubit<DivisionState> {
+  MathsController({
+    required IEuclideanDivisionUseCase euclideanDivisionUseCase,
+  })  : _euclideanDivisionUseCase = euclideanDivisionUseCase,
+        super(const DivisionState());
+
+  final IEuclideanDivisionUseCase _euclideanDivisionUseCase;
+
+  void update({
+    int? dividend,
+    int? divisor,
+  }) {
+    emit(
+      state.copyWith(
+        dividend: dividend,
+        divisor: divisor,
+      ),
+    );
+
+    _divide();
+  }
+
+  void _divide() async {
+    final DivisionState(:dividend, :divisor) = state;
+    if (dividend == null || divisor == null) {
+      return;
+    }
+
+    final result = await _euclideanDivisionUseCase(dividend, divisor)
+        .match(
+          (l) => state.copyWith(error: l),
+          (r) => state.copyWith(
+            remainder: r.remainder,
+            quotient: r.quotient,
+          ),
+        )
+        .run();
+
+    emit(result);
+  }
+}
+
 class DivisionState {
   const DivisionState({
     this.dividend,
@@ -33,47 +76,5 @@ class DivisionState {
       quotient: quotient ?? this.quotient,
       error: error ?? this.error,
     );
-  }
-}
-
-@injectable
-final class MathsController extends Cubit<DivisionState> {
-  MathsController({
-    required IEuclideanDivisionUseCase euclideanDivisionUseCase,
-  })  : _euclideanDivisionUseCase = euclideanDivisionUseCase,
-        super(const DivisionState());
-
-  final IEuclideanDivisionUseCase _euclideanDivisionUseCase;
-
-  void update({
-    int? dividend,
-    int? divisor,
-  }) {
-    emit(
-      state.copyWith(
-        dividend: dividend,
-        divisor: divisor,
-      ),
-    );
-    _divide();
-  }
-
-  void _divide() async {
-    final DivisionState(:dividend, :divisor) = state;
-    if (dividend == null || divisor == null) {
-      return;
-    }
-
-    final result = await _euclideanDivisionUseCase(dividend, divisor)
-        .match(
-          (l) => state.copyWith(error: l),
-          (r) => state.copyWith(
-            remainder: r.remainder,
-            quotient: r.quotient,
-          ),
-        )
-        .run();
-
-    emit(result);
   }
 }

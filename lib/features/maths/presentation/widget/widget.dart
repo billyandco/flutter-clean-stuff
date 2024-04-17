@@ -1,1 +1,1 @@
-export 'euclidean_division_layout.dart';
+export 'euclidean_division_card.dart';
