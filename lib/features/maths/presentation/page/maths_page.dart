@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../common/injection/depedencies.dart';
+import '../../../../common/injection/dependencies.dart';
 import '../presentation.dart';
 
 class MathsPage extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import 'depedencies.config.dart';
+import 'dependencies.config.dart';
 
 final getIt = GetIt.instance;
 
